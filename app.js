@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/uploadImage', (req, res) => {
-    
+    res.setHeader('Access-Control-Allow-Origin', '*');
     var ref = firebase.database().ref();
     firebase.database().ref().push(req.body);
     ref.once('value', (snapshot) => {
@@ -33,6 +33,7 @@ app.post('/uploadImage', (req, res) => {
 });
 
 app.get('/allImages', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     var ref = firebase.database().ref();
     ref.once('value', (snapshot) => {
         var value = snapshot.val()
@@ -42,6 +43,7 @@ app.get('/allImages', (req, res) => {
 })
 
 app.delete('/images/:id', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     var ref = firebase.database().ref();
     ref.child(req.params.id).remove()
     ref.once('value', (snapshot) => {
